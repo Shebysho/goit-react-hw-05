@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useRef } from 'react'; // Додано useRef
 import {
   useParams,
   useLocation,
@@ -9,11 +9,18 @@ import {
 import { getMovieDetails } from '../../services/api';
 import styles from './MovieDetailsPage.module.css';
 
+const MovieCast = React.lazy(() =>
+  import('../../components/MovieCast/MovieCast'),
+);
+const MovieReviews = React.lazy(() =>
+  import('../../components/MovieReviews/MovieReviews'),
+);
+
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/movies';
+  const backLinkHref = useRef(location.state?.from).current ?? '/movies'; // Виправлено useRef
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -22,7 +29,6 @@ export default function MovieDetailsPage() {
         setMovie(response);
       } catch (error) {
         console.error('Error fetching movie details:', error);
-        setMovie(null);
       }
     };
 
@@ -31,11 +37,11 @@ export default function MovieDetailsPage() {
 
   return (
     <main className={styles.main}>
-      <Link to={backLinkHref} className={styles.backLink}>
+      <Link to={backLinkHref} className={styles.backLink}> 
         Go back
       </Link>
 
-      {movie ? ( 
+      {movie ? (
         <div className={styles.movie}>
           <img
             src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
@@ -53,7 +59,7 @@ export default function MovieDetailsPage() {
             <h3 className={styles.overviewTitle}>Overview</h3>
             <p className={styles.overview}>{movie.overview}</p>
             <h3 className={styles.genresTitle}>Genres</h3>
-            {movie.genres && movie.genres.length > 0 ? ( 
+            {movie.genres && movie.genres.length > 0 ? (
               <ul className={styles.genresList}>
                 {movie.genres.map((genre) => (
                   <li key={genre.id} className={styles.genreItem}>
