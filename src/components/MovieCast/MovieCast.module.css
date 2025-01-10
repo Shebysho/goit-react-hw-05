@@ -1,0 +1,21 @@
+.list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .item {
+    width: calc(25% - 20px); /* Чотири актори в ряд */
+    text-align: center;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .name {
+    font-weight: bold;
+  }

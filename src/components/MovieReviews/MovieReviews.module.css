@@ -1,0 +1,14 @@
+.list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .author {
+    font-weight: bold;
+  }
