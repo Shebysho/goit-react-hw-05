@@ -9,12 +9,6 @@ import {
 import { getMovieDetails } from '../../services/api';
 import styles from './MovieDetailsPage.module.css';
 
-const MovieCast = React.lazy(() =>
-  import('../../components/MovieCast/MovieCast'),
-);
-const MovieReviews = React.lazy(() =>
-  import('../../components/MovieReviews/MovieReviews'),
-);
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
